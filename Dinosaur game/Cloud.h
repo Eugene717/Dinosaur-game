@@ -1,7 +1,7 @@
 #pragma once
-#include <SFML/Graphics.hpp>
+#include "Entity.h"
 
-class Cloud : public sf::Drawable
+class Cloud : public Entity
 {
 
 public:

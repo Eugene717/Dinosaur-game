@@ -1,7 +1,7 @@
 #pragma once
-#include <SFML/Graphics.hpp>
+#include "Entity.h"
 
-class Score : public sf::Drawable
+class Score : public Entity
 {
 
 public:

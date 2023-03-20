@@ -149,18 +149,22 @@
     <ClCompile Include="Cactus.cpp" />
     <ClCompile Include="Cloud.cpp" />
     <ClCompile Include="Dinosaur.cpp" />
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="pterodactyl.cpp" />
+    <ClCompile Include="Pterodactyl.cpp" />
     <ClCompile Include="Score.cpp" />
+    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cactus.h" />
     <ClInclude Include="Cloud.h" />
     <ClInclude Include="Dinosaur.h" />
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="pterodactyl.h" />
+    <ClInclude Include="Pterodactyl.h" />
     <ClInclude Include="Score.h" />
+    <ClInclude Include="World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

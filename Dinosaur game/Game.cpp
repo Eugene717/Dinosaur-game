@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Entity.h"
 
 void Game::Input(sf::Keyboard::Key key)
 {

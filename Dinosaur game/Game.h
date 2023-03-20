@@ -1,9 +1,11 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
+class Entity;
+
 class Game
 {
-	std::vector<sf::Drawable*> objects_;
+	std::vector<Entity*> objects_;
 public:
 	void Input(sf::Keyboard::Key key);
 	void Update();

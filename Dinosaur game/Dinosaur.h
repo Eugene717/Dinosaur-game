@@ -1,7 +1,7 @@
 #pragma once
-#include <SFML/Graphics.hpp>
+#include "Entity.h"
 
-class Dinosaur : public sf::Drawable
+class Dinosaur : public Entity
 {
 
 public:

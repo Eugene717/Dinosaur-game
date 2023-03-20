@@ -1,7 +1,7 @@
 #pragma once
-#include <SFML/Graphics.hpp>
+#include "Entity.h"
 
-class Cactus : public sf::Drawable
+class Cactus : public Entity
 {
 
 public:
