@@ -152,8 +152,10 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Moon.cpp" />
     <ClCompile Include="Pterodactyl.cpp" />
     <ClCompile Include="Score.cpp" />
+    <ClCompile Include="Star.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -162,8 +164,10 @@
     <ClInclude Include="Dinosaur.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Moon.h" />
     <ClInclude Include="Pterodactyl.h" />
     <ClInclude Include="Score.h" />
+    <ClInclude Include="Star.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

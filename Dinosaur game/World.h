@@ -5,6 +5,7 @@ class World : public Entity
 {
 
 public:
-
+	World();
+	~World();
 };
 
