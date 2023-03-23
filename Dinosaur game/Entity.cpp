@@ -15,7 +15,7 @@ Entity::Entity()
 Entity::~Entity()
 { }
 
-void Entity::Input(sf::Keyboard::Key key)
+void Entity::Input(sf::Event& event)
 { }
 
 void Entity::Render(sf::RenderWindow& window)

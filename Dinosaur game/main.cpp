@@ -3,7 +3,7 @@
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(800, 600), "Dinosaur");
+	sf::RenderWindow window(sf::VideoMode(800, 200), "Dinosaur");
 	window.setVerticalSyncEnabled(true);
 
 	Game game;
@@ -16,16 +16,14 @@ int main()
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
-			if (event.type == sf::Event::KeyPressed)
-			{
-				game.Input(event.key.code);
-			}
+
+			game.Input(event);
 		}
+
+		game.Update();
+
+		game.Render(window);
 	}
-
-	game.Update();
-
-	game.Render(window);
 
 	return 0;
 }

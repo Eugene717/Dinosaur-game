@@ -10,8 +10,8 @@ protected:
 public:
 	Entity();
 	~Entity();
-	virtual void Input(sf::Keyboard::Key key);
+	virtual void Input(sf::Event& event);
 	virtual void Update() = 0;
-	void Render(sf::RenderWindow& window);
+	virtual void Render(sf::RenderWindow& window);
 };
 

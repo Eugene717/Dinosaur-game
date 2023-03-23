@@ -11,7 +11,9 @@
 
 Game::Game()
 {
-	Entity* dino = new Dinosaur();
+	started_ = false;
+
+	Entity* dino = new Dinosaur;
 
 	objects_.push_back(dino);
 }
@@ -25,14 +27,31 @@ Game::~Game()
 	}
 }
 
-void Game::Input(sf::Keyboard::Key key)
+void Game::Init()
 {
+	Entity* world = new World;
+	objects_.push_back(world);
+}
 
+void Game::Input(sf::Event& event)
+{
+	if (!started_)
+		if (event.type == sf::Event::KeyPressed)
+		{
+			started_ = true;
+			Init();
+		}
+
+	objects_[0]->Input(event);
 }
 
 void Game::Update()
 {
-
+	if (started_)
+		for (int i = 0; i < objects_.size(); i++)
+		{
+			objects_[i]->Update();
+		}
 }
 
 void Game::Render(sf::RenderWindow& window)
@@ -41,7 +60,7 @@ void Game::Render(sf::RenderWindow& window)
 
 	for (int i = 0; i < objects_.size(); i++)
 	{
-		objects_[i]->Render();
+		objects_[i]->Render(window);
 	}
 
 	window.display();
