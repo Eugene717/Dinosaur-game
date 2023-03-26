@@ -1,11 +1,13 @@
 #include "Dinosaur.h"
+#include "DinoState.h"
 
 Dinosaur::Dinosaur()
 {
-	init_ = jump_ = crouch_ = false;
+	init_ = false;
+	state_ = nullptr;
 
 	sprite_.setTexture(texture_);
-	sprite_.setTextureRect(sf::IntRect(40, 4, 43, 44));
+	sprite_.setTextureRect(sf::IntRect(40, 2, 43, 46));
 	sprite_.setPosition(50, 100);
 }
 
@@ -14,14 +16,15 @@ Dinosaur::~Dinosaur()
 
 void Dinosaur::Init()
 {
-	jump_ = true;
+	//state_ = new JumpState(this);
+	state_ = new RunState(this);
 	
 	init_ = true;
 }
 
 void Dinosaur::Input(sf::Event& event)
 {	
-	if (event.type == sf::Event::KeyPressed)
+	if (event.type == sf::Event::KeyPressed || event.type == sf::Event::KeyReleased)
 	{
 		if (init_ == false)
 		{
@@ -30,30 +33,19 @@ void Dinosaur::Input(sf::Event& event)
 		}
 		else
 		{
-			if (event.key.code == sf::Keyboard::Space || event.key.code == sf::Keyboard::Up)
-				jump_ = true;
-			if (event.key.code == sf::Keyboard::Down)
-				crouch_ = true;
+			DinoState* state = state_->Input(event);
+			if (state != nullptr)
+			{
+				delete state_;
+				state_ = state;
+			}			
 		}
-	}
-	if (event.type == sf::Event::KeyReleased)
-	{
-		if (event.key.code == sf::Keyboard::Space || event.key.code == sf::Keyboard::Up)
-			jump_ = false;
-		if (event.key.code == sf::Keyboard::Down)
-			crouch_ = false;
 	}
 }
 
 void Dinosaur::Update()
 {
 	if (init_)
-	{
-
-	}
+		state_->Update();
 }
 
-void Dinosaur::Jump()
-{
-
-}

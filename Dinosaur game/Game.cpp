@@ -38,8 +38,11 @@ void Game::Input(sf::Event& event)
 	if (!started_)
 		if (event.type == sf::Event::KeyPressed)
 		{
-			started_ = true;
-			Init();
+			if (event.key.code == sf::Keyboard::Space || event.key.code == sf::Keyboard::Up)
+			{
+				started_ = true;
+				Init();
+			}
 		}
 
 	objects_[0]->Input(event);
