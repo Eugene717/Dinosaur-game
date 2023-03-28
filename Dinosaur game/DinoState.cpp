@@ -24,7 +24,11 @@ JumpState::JumpState(DinoState* other) : DinoState(other), keyPressed_(true), on
 
 CrouchState::CrouchState(DinoState* other) : DinoState(other)
 {
-	NextFrame(sf::IntRect(1171, 19, 58, 29));
+	if (firstFrame_)
+		NextFrame(sf::IntRect(1171, 19, 58, 29));
+	else
+		NextFrame(sf::IntRect(1112, 19, 58, 29));
+
 	Move(sf::Vector2f(0, 17));
 }
 
@@ -109,7 +113,7 @@ DinoState* JumpState::Update()
 	if (GetPos().y >= 100)
 	{
 		onGround_ = true;
-		Move(sf::Vector2f(0, abs(100 - GetPos().y)));
+		Move(sf::Vector2f(0, 100 - GetPos().y));
 	}
 
 	if (!keyPressed_ && onGround_)
