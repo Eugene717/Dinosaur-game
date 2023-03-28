@@ -12,39 +12,40 @@ protected:
 
 	void NextFrame(sf::IntRect rect);
 	void Move(sf::Vector2f pos);
+	sf::Vector2f GetPos() const;
 public:
 	DinoState(Dinosaur* dino);
 	DinoState(DinoState* other);
 	virtual DinoState* Input(sf::Event& event) = 0;
-	virtual void Update() = 0;
+	virtual DinoState* Update() = 0;
 };
 
 class RunState : public DinoState
 {
 
 public:
-	RunState(Dinosaur* dino);
 	RunState(DinoState* other);
 	DinoState* Input(sf::Event& event) override;
-	void Update() override;
+	DinoState* Update() override;
 };
 
 class JumpState : public DinoState
 {
-
+	bool keyPressed_;
+	bool onGround_;
+	bool jumped_;
 public:
 	JumpState(Dinosaur* dino);
 	JumpState(DinoState* other);
 	DinoState* Input(sf::Event& event) override;
-	void Update() override;
+	DinoState* Update() override;
 };
 
 class CrouchState : public DinoState
 {
 
 public:
-	CrouchState(Dinosaur* dino);
 	CrouchState(DinoState* other);
 	DinoState* Input(sf::Event& event) override;
-	void Update() override;
+	DinoState* Update() override;
 };

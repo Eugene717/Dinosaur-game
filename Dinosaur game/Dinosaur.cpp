@@ -16,8 +16,7 @@ Dinosaur::~Dinosaur()
 
 void Dinosaur::Init()
 {
-	//state_ = new JumpState(this);
-	state_ = new RunState(this);
+	state_ = new JumpState(this);
 	
 	init_ = true;
 }
@@ -46,6 +45,13 @@ void Dinosaur::Input(sf::Event& event)
 void Dinosaur::Update()
 {
 	if (init_)
-		state_->Update();
+	{
+		DinoState* state = state_->Update(); 
+		if (state != nullptr)
+		{
+			delete state_;
+			state_ = state;
+		}
+	}
 }
 
