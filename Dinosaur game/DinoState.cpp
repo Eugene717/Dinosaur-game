@@ -7,24 +7,24 @@ DinoState::DinoState(Dinosaur* dino) :dino_(dino), firstFrame_(true)
 DinoState::DinoState(DinoState* other) : dino_(other->dino_), firstFrame_(other->firstFrame_)
 { }
 
-JumpState::JumpState(Dinosaur* dino) : DinoState(dino), keyPressed_(true), onGround_(false), jumped_(false)
+JumpState::JumpState(Dinosaur* dino) : DinoState(dino), keyPressed_(true), onGround_(false), jumpedTop_(false)
 {
 	NextFrame(sf::IntRect(848, 2, 43, 46));
-	Move(sf::Vector2f(0, -10));
+	Move(sf::Vector2f(0, -5));
 }
 
 RunState::RunState(DinoState* other) : DinoState(other)
 { }
 
-JumpState::JumpState(DinoState* other) : DinoState(other), keyPressed_(true), onGround_(false), jumped_(false)
+JumpState::JumpState(DinoState* other) : DinoState(other), keyPressed_(true), onGround_(false), jumpedTop_(false)
 {
 	NextFrame(sf::IntRect(848, 2, 43, 46));
-	Move(sf::Vector2f(0, -10));
+	Move(sf::Vector2f(0, -5));
 }
 
 CrouchState::CrouchState(DinoState* other) : DinoState(other)
 {
-	NextFrame(sf::IntRect(980, 2, 43, 46));
+	NextFrame(sf::IntRect(1171, 19, 58, 29));
 	Move(sf::Vector2f(0, 17));
 }
 
@@ -86,25 +86,25 @@ DinoState* JumpState::Input(sf::Event& event)
 
 DinoState* JumpState::Update()
 {
-	int moveDown = 1;
+	int moveDown = 2;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
-		jumped_ = true;
-		moveDown = 2;
+		jumpedTop_ = true;
+		moveDown = 5;
 	}
 
 	if (clock_.getElapsedTime().asMilliseconds() >= 10)
 	{
-		if (jumped_)
+		if (jumpedTop_)
 			Move(sf::Vector2f(0, moveDown));
 		else
-			Move(sf::Vector2f(0, -10));
+			Move(sf::Vector2f(0, -5));
 
 		clock_.restart();
 	}
 
-	if (GetPos().y == 50)
-		jumped_ = true;
+	if (GetPos().y <= 50)
+		jumpedTop_ = true;
 
 	if (GetPos().y >= 100)
 	{
@@ -112,9 +112,14 @@ DinoState* JumpState::Update()
 		Move(sf::Vector2f(0, abs(100 - GetPos().y)));
 	}
 
-	if (!keyPressed_)
-		if (onGround_)
-			return new RunState(this);
+	if (!keyPressed_ && onGround_)
+		return new RunState(this);
+	else if (onGround_ && keyPressed_)
+	{
+		jumpedTop_ = false;
+		onGround_ = false;
+		Move(sf::Vector2f(0, -5));
+	}
 
 	return nullptr;
 }
@@ -125,6 +130,7 @@ DinoState* CrouchState::Input(sf::Event& event)
 	{
 		if (event.key.code == sf::Keyboard::Down)
 		{
+			NextFrame(sf::IntRect(936, 2, 43, 46));
 			Move(sf::Vector2f(0, -17));
 			return new RunState(this); 
 		}

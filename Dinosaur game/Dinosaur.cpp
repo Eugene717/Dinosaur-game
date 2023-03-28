@@ -44,14 +44,14 @@ void Dinosaur::Input(sf::Event& event)
 
 void Dinosaur::Update()
 {
-	if (init_)
+	if (!init_)
+		return;
+
+	DinoState* state = state_->Update();
+	if (state != nullptr)
 	{
-		DinoState* state = state_->Update(); 
-		if (state != nullptr)
-		{
-			delete state_;
-			state_ = state;
-		}
+		delete state_;
+		state_ = state;
 	}
 }
 

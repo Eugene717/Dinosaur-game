@@ -33,7 +33,7 @@ class JumpState : public DinoState
 {
 	bool keyPressed_;
 	bool onGround_;
-	bool jumped_;
+	bool jumpedTop_;
 public:
 	JumpState(Dinosaur* dino);
 	JumpState(DinoState* other);
