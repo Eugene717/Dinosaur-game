@@ -107,7 +107,7 @@ DinoState* JumpState::Update()
 		clock_.restart();
 	}
 
-	if (GetPos().y <= 50)
+	if (GetPos().y <= 30)
 		jumpedTop_ = true;
 
 	if (GetPos().y >= 100)

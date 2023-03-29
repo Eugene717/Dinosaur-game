@@ -14,6 +14,11 @@ Dinosaur::Dinosaur()
 Dinosaur::~Dinosaur()
 { }
 
+sf::IntRect Dinosaur::GetSpriteRect() const
+{
+	return sprite_.getTextureRect();
+}
+
 void Dinosaur::Init()
 {
 	state_ = new JumpState(this);
