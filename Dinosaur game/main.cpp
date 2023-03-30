@@ -1,6 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include "Game.h"
 
+const int MS_PER_UPDATE = 16;
+
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(800, 200), "Dinosaur");
@@ -8,6 +10,7 @@ int main()
 
 	Game game;
 	sf::Clock clock;
+	double lag = 0.0;
 
 	while (window.isOpen())
 	{
@@ -21,7 +24,15 @@ int main()
 			game.Input(event);
 		}
 
-		game.Update(clock.getElapsedTime());
+		sf::Time elapsed = clock.getElapsedTime();
+		lag += elapsed.asMilliseconds();
+		
+		while (lag >= MS_PER_UPDATE)
+		{
+			game.Update(clock.getElapsedTime());
+			lag -= MS_PER_UPDATE;
+		}
+
 		clock.restart();
 
 		game.Render(window);
