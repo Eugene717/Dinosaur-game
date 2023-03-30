@@ -16,6 +16,7 @@ protected:
 public:
 	DinoState(Dinosaur* dino);
 	DinoState(DinoState* other);
+	virtual ~DinoState();
 	virtual DinoState* Input(sf::Event& event) = 0;
 	virtual DinoState* Update(sf::Time elapsed) = 0;
 };

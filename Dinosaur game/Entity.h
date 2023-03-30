@@ -9,7 +9,7 @@ protected:
 	sf::Sprite sprite_;
 public:
 	Entity();
-	~Entity();
+	virtual ~Entity();
 	virtual void Input(sf::Event& event);
 	virtual void Update(sf::Time elapsed) = 0;
 	virtual void Render(sf::RenderWindow& window);

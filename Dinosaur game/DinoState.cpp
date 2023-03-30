@@ -14,6 +14,9 @@ DinoState::DinoState(Dinosaur* dino) :dino_(dino)
 DinoState::DinoState(DinoState* other) : dino_(other->dino_)
 { }
 
+DinoState::~DinoState()
+{ }
+
 JumpState::JumpState(Dinosaur* dino) : DinoState(dino), keyPressed_(true), onGround_(false), velocity_(0, JUMP_VELOCITY)
 {
 	NextFrame(sf::IntRect(848, 2, 43, 46));
