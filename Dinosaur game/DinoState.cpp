@@ -1,25 +1,35 @@
 #include "DinoState.h"
 #include "Dinosaur.h"
 
-DinoState::DinoState(Dinosaur* dino) :dino_(dino), firstFrame_(true)
+sf::Time DinoState::last_;
+bool DinoState::firstFrame_;
+const float GRAVITY = 750.0f;  //free fall
+const float JUMP_VELOCITY = -320.0f;  //initial speed
+
+DinoState::DinoState(Dinosaur* dino) :dino_(dino)
+{
+	firstFrame_ = true;
+}
+
+DinoState::DinoState(DinoState* other) : dino_(other->dino_)
 { }
 
-DinoState::DinoState(DinoState* other) : dino_(other->dino_), firstFrame_(other->firstFrame_)
-{ }
-
-JumpState::JumpState(Dinosaur* dino) : DinoState(dino), keyPressed_(true), onGround_(false), jumpedTop_(false)
+JumpState::JumpState(Dinosaur* dino) : DinoState(dino), keyPressed_(true), onGround_(false), velocity_(0, JUMP_VELOCITY)
 {
 	NextFrame(sf::IntRect(848, 2, 43, 46));
-	Move(sf::Vector2f(0, -5));
 }
 
 RunState::RunState(DinoState* other) : DinoState(other)
-{ }
+{
+	if (firstFrame_)
+		NextFrame(sf::IntRect(936, 2, 43, 46));
+	else
+		NextFrame(sf::IntRect(980, 2, 43, 46));
+}
 
-JumpState::JumpState(DinoState* other) : DinoState(other), keyPressed_(true), onGround_(false), jumpedTop_(false)
+JumpState::JumpState(DinoState* other) : DinoState(other), keyPressed_(true), onGround_(false), velocity_(0, JUMP_VELOCITY)
 {
 	NextFrame(sf::IntRect(848, 2, 43, 46));
-	Move(sf::Vector2f(0, -5));
 }
 
 CrouchState::CrouchState(DinoState* other) : DinoState(other)
@@ -60,9 +70,9 @@ DinoState* RunState::Input(sf::Event& event)
 	return nullptr;
 }
 
-DinoState* RunState::Update()
+DinoState* RunState::Update(sf::Time elapsed)
 {
-	if (clock_.getElapsedTime().asMilliseconds() >= 100)
+	if (last_.asMilliseconds() + elapsed.asMilliseconds() >= 100)
 	{
 		if (firstFrame_)
 		{
@@ -74,8 +84,11 @@ DinoState* RunState::Update()
 			NextFrame(sf::IntRect(980, 2, 43, 46));
 			firstFrame_ = true;
 		}
-		clock_.restart();
+		last_ = sf::Time::Zero;
 	}
+	else
+		last_ += elapsed;
+
 	return nullptr;
 }
 
@@ -88,27 +101,16 @@ DinoState* JumpState::Input(sf::Event& event)
 	return nullptr;
 }
 
-DinoState* JumpState::Update()
+DinoState* JumpState::Update(sf::Time elapsed)
 {
-	int moveDown = 2;
+	float moveDown = 1.0f;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
-		jumpedTop_ = true;
-		moveDown = 5;
+		moveDown = 2.5f;
 	}
 
-	if (clock_.getElapsedTime().asMilliseconds() >= 10)
-	{
-		if (jumpedTop_)
-			Move(sf::Vector2f(0, moveDown));
-		else
-			Move(sf::Vector2f(0, -5));
-
-		clock_.restart();
-	}
-
-	if (GetPos().y <= 30)
-		jumpedTop_ = true;
+	velocity_.y += GRAVITY * moveDown * (float)elapsed.asSeconds() ;
+	Move(sf::Vector2f(0, velocity_.y * (float)elapsed.asSeconds()));
 
 	if (GetPos().y >= 100)
 	{
@@ -120,9 +122,8 @@ DinoState* JumpState::Update()
 		return new RunState(this);
 	else if (onGround_ && keyPressed_)
 	{
-		jumpedTop_ = false;
+		velocity_.y = JUMP_VELOCITY;
 		onGround_ = false;
-		Move(sf::Vector2f(0, -5));
 	}
 
 	return nullptr;
@@ -134,7 +135,6 @@ DinoState* CrouchState::Input(sf::Event& event)
 	{
 		if (event.key.code == sf::Keyboard::Down)
 		{
-			NextFrame(sf::IntRect(936, 2, 43, 46));
 			Move(sf::Vector2f(0, -17));
 			return new RunState(this); 
 		}
@@ -143,9 +143,9 @@ DinoState* CrouchState::Input(sf::Event& event)
 	return nullptr;
 }
 
-DinoState* CrouchState::Update()
+DinoState* CrouchState::Update(sf::Time elapsed)
 {
-	if (clock_.getElapsedTime().asMilliseconds() >= 100)
+	if (last_.asMilliseconds() + elapsed.asMilliseconds() >= 100)
 	{
 		if (firstFrame_)
 		{
@@ -157,7 +157,10 @@ DinoState* CrouchState::Update()
 			NextFrame(sf::IntRect(1112, 19, 58, 29));
 			firstFrame_ = true;
 		}
-		clock_.restart();
+		last_ = sf::Time::Zero;
 	}
+	else
+		last_ += elapsed;
+
 	return nullptr;
 }

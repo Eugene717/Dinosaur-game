@@ -47,12 +47,12 @@ void Dinosaur::Input(sf::Event& event)
 	}
 }
 
-void Dinosaur::Update()
+void Dinosaur::Update(sf::Time elapsed)
 {
 	if (!init_)
 		return;
 
-	DinoState* state = state_->Update();
+	DinoState* state = state_->Update(elapsed);
 	if (state != nullptr)
 	{
 		delete state_;

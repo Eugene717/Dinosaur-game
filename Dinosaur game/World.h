@@ -7,7 +7,7 @@ class World : public Entity
 public:
 	World();
 	~World(); 
-	void Update() override;
+	void Update(sf::Time elapsed) override;
 	void Render(sf::RenderWindow& window) override;
 };
 

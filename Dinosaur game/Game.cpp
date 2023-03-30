@@ -48,12 +48,12 @@ void Game::Input(sf::Event& event)
 	objects_[0]->Input(event);
 }
 
-void Game::Update()
+void Game::Update(sf::Time elapsed)
 {
 	if (started_)
 		for (int i = 0; i < objects_.size(); i++)
 		{
-			objects_[i]->Update();
+			objects_[i]->Update(elapsed);
 		}
 }
 

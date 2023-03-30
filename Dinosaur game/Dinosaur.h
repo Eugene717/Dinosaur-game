@@ -13,7 +13,7 @@ public:
 	sf::IntRect GetSpriteRect() const;
 	void Init();
 	void Input(sf::Event& event) override;
-	void Update() override;
+	void Update(sf::Time elapsed) override;
 
 	friend DinoState;
 };

@@ -12,7 +12,7 @@ public:
 	~Game();
 	void Init();
 	void Input(sf::Event& event);
-	void Update();
+	void Update(sf::Time elapsed);
 	void Render(sf::RenderWindow& window);
 };
 

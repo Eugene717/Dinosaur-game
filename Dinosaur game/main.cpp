@@ -7,6 +7,7 @@ int main()
 	window.setVerticalSyncEnabled(true);
 
 	Game game;
+	sf::Clock clock;
 
 	while (window.isOpen())
 	{
@@ -20,7 +21,8 @@ int main()
 			game.Input(event);
 		}
 
-		game.Update();
+		game.Update(clock.getElapsedTime());
+		clock.restart();
 
 		game.Render(window);
 	}
