@@ -14,9 +14,9 @@ Dinosaur::Dinosaur()
 Dinosaur::~Dinosaur()
 { }
 
-sf::IntRect Dinosaur::GetSpriteRect() const
+sf::FloatRect Dinosaur::GetGlobalBounds() const
 {
-	return sprite_.getTextureRect();
+	return sprite_.getGlobalBounds();
 }
 
 void Dinosaur::Init()
