@@ -21,6 +21,7 @@ sf::FloatRect Dinosaur::GetGlobalBounds() const
 
 void Dinosaur::Init()
 {
+	sprite_.setPosition(50, 100);
 	state_ = new JumpState(this);
 	
 	init_ = true;

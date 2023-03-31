@@ -6,7 +6,7 @@ class Entity;
 class Game
 {
 	std::vector<Entity*> objects_;
-	bool started_;
+	bool started_, ended_;
 public:
 	Game();
 	~Game();

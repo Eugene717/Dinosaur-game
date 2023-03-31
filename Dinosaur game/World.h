@@ -17,7 +17,8 @@ class World : public Entity
 	void DeleteOldObjects();
 public:
 	World();
-	~World(); 
+	~World();
+	void Init();
 	void Update(sf::Time elapsed) override;
 	void Render(sf::RenderWindow& window) override;
 	bool CheckCollision(sf::FloatRect rect) const override;

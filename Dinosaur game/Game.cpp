@@ -9,11 +9,15 @@
 
 Game::Game()
 {
-	started_ = false;
+	started_ = ended_ = false;
 
 	Entity* dino = new Dinosaur;
 
-	objects_.push_back(dino);
+	objects_.push_back(dino); 
+	
+	Entity* world = new World;
+
+	objects_.push_back(world);
 }
 
 Game::~Game()
@@ -27,21 +31,24 @@ Game::~Game()
 
 void Game::Init()
 {
-	Entity* world = new World;
-	objects_.push_back(world);
+	dynamic_cast<Dinosaur*>(objects_[0])->Init();
+	dynamic_cast<World*>(objects_[1])->Init();
 }
 
 void Game::Input(sf::Event& event)
 {
 	if (!started_)
+	{
 		if (event.type == sf::Event::KeyPressed)
 		{
 			if (event.key.code == sf::Keyboard::Space || event.key.code == sf::Keyboard::Up)
 			{
-				started_ = true;
 				Init();
+				started_ = true;
+				ended_ = false;
 			}
 		}
+	}
 
 	objects_[0]->Input(event);
 }
@@ -55,7 +62,10 @@ void Game::Update(sf::Time elapsed)
 			objects_[i]->Update(elapsed);
 		}
 		if (objects_[1]->CheckCollision(dynamic_cast<Dinosaur*>(objects_[0])->GetGlobalBounds()))
+		{
+			ended_ = true;
 			started_ = false;
+		}
 	}
 }
 
@@ -63,20 +73,22 @@ void Game::Render(sf::RenderWindow& window)
 {
 	window.clear(sf::Color::White);
 
-	for (int i = objects_.size() - 1; i >= 0; i--)
+	if (started_ || ended_)
 	{
-		objects_[i]->Render(window);
+		objects_[1]->Render(window);
+
+		sf::RectangleShape border;
+		border.setFillColor(sf::Color::White);
+		border.setSize(sf::Vector2f(10, 200));
+
+		window.draw(border);
+
+		border.setPosition(790, 0);
+
+		window.draw(border);
 	}
 
-	sf::RectangleShape border;
-	border.setFillColor(sf::Color::White);
-	border.setSize(sf::Vector2f(10, 200));
-
-	window.draw(border);
-
-	border.setPosition(790, 0);
-
-	window.draw(border);
+	objects_[0]->Render(window);
 
 	window.display();
 }

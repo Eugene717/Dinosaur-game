@@ -8,16 +8,11 @@ const int CHANGE_TO_SPAWN_CACTUS = 25;
 World::World()
 {
 	sprite_.setTexture(texture_);
-	sprite_.setTextureRect(sf::IntRect(2, 54, 800, 11));  //1200 - width
-    sprite_.setPosition(0, 135);
-
     sprite2_.setTexture(texture_);
-    sprite2_.setTextureRect(sf::IntRect(2, 54, 0, 11));
-    sprite2_.setPosition(1200, 135);
 
     score_ = new Score();
 
-    timerToSpawnCactuses_ = 0;    
+    Init();
 }
 
 World::~World()
@@ -30,6 +25,24 @@ World::~World()
     }
 
     objects_.clear();
+}
+
+void World::Init()
+{
+    score_->Init();
+
+    for (auto it = objects_.begin(); it != objects_.end(); ++it)
+    {
+		delete (*it);
+    }
+    objects_.clear();
+
+    sprite_.setPosition(0, 135);
+    sprite_.setTextureRect(sf::IntRect(2, 54, 800, 11));
+    sprite2_.setTextureRect(sf::IntRect(2, 54, 0, 11));
+    sprite2_.setPosition(1200, 135);
+
+    timerToSpawnCactuses_ = 0;
 }
 
 void World::SpawnNewObjects()

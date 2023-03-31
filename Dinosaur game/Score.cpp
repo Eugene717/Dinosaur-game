@@ -76,6 +76,9 @@ Score::Score() : score_(0), HIScore_(0)
 
 void Score::Init()
 {
+	HIScore_ = score_;
+	score_ = 0;
+
 	numbers_.clear();
 
 	numbers_.push_back(std::make_pair<int, sf::Vector2f>(HIScore_ / 10000, sf::Vector2f(680, 10)));
