@@ -7,7 +7,7 @@ Dinosaur::Dinosaur()
 	state_ = nullptr;
 
 	sprite_.setTexture(texture_);
-	sprite_.setTextureRect(sf::IntRect(40, 2, 43, 46));
+	sprite_.setTextureRect(sf::IntRect(40, 2, 44, 46));
 	sprite_.setPosition(50, 100);
 }
 

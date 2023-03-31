@@ -19,28 +19,28 @@ DinoState::~DinoState()
 
 JumpState::JumpState(Dinosaur* dino) : DinoState(dino), keyPressed_(true), onGround_(false), velocity_(0, JUMP_VELOCITY)
 {
-	NextFrame(sf::IntRect(848, 2, 43, 46));
+	NextFrame(sf::IntRect(848, 2, 44, 46));
 }
 
 RunState::RunState(DinoState* other) : DinoState(other)
 {
 	if (firstFrame_)
-		NextFrame(sf::IntRect(936, 2, 43, 46));
+		NextFrame(sf::IntRect(936, 2, 44, 46));
 	else
-		NextFrame(sf::IntRect(980, 2, 43, 46));
+		NextFrame(sf::IntRect(980, 2, 44, 46));
 }
 
 JumpState::JumpState(DinoState* other) : DinoState(other), keyPressed_(true), onGround_(false), velocity_(0, JUMP_VELOCITY)
 {
-	NextFrame(sf::IntRect(848, 2, 43, 46));
+	NextFrame(sf::IntRect(848, 2, 44, 46));
 }
 
 CrouchState::CrouchState(DinoState* other) : DinoState(other)
 {
 	if (firstFrame_)
-		NextFrame(sf::IntRect(1171, 19, 58, 29));
+		NextFrame(sf::IntRect(1171, 19, 59, 29));
 	else
-		NextFrame(sf::IntRect(1112, 19, 58, 29));
+		NextFrame(sf::IntRect(1112, 19, 59, 29));
 
 	Move(sf::Vector2f(0, 17));
 }
@@ -79,12 +79,12 @@ DinoState* RunState::Update(sf::Time elapsed)
 	{
 		if (firstFrame_)
 		{
-			NextFrame(sf::IntRect(936, 2, 43, 46));
+			NextFrame(sf::IntRect(936, 2, 44, 46));
 			firstFrame_ = false;
 		}
 		else
 		{
-			NextFrame(sf::IntRect(980, 2, 43, 46));
+			NextFrame(sf::IntRect(980, 2, 44, 46));
 			firstFrame_ = true;
 		}
 		last_ = sf::Time::Zero;
@@ -152,12 +152,12 @@ DinoState* CrouchState::Update(sf::Time elapsed)
 	{
 		if (firstFrame_)
 		{
-			NextFrame(sf::IntRect(1171, 19, 58, 29));
+			NextFrame(sf::IntRect(1171, 19, 59, 29));
 			firstFrame_ = false;
 		}
 		else
 		{
-			NextFrame(sf::IntRect(1112, 19, 58, 29));
+			NextFrame(sf::IntRect(1112, 19, 59, 29));
 			firstFrame_ = true;
 		}
 		last_ = sf::Time::Zero;
