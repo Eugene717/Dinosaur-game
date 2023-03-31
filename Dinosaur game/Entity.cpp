@@ -22,3 +22,13 @@ void Entity::Render(sf::RenderWindow& window)
 {
 	window.draw(sprite_);
 }
+
+const sf::Vector2f Entity::GetSpritePos() const
+{
+	return sprite_.getPosition();
+}
+
+bool Entity::CheckCollision(sf::FloatRect rect) const
+{
+	return false;
+}

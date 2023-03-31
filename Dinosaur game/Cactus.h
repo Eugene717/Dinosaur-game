@@ -8,5 +8,6 @@ public:
 	Cactus(int n);
 	~Cactus();
 	void Update(sf::Time elapsed) override;
+	bool CheckCollision(sf::FloatRect rect) const override;
 };
 

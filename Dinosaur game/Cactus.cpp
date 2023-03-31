@@ -16,8 +16,12 @@ Cactus::Cactus(int n)
 
 	if (n < cactuses_.size())
 	{
+		sprite_.setTexture(texture_);
 		sprite_.setTextureRect(cactuses_[n]);
-		sprite_.setPosition(810, 100);
+		if (n < 3)
+			sprite_.setPosition(810, 100);
+		else
+			sprite_.setPosition(810, 113);
 	}
 }
 
@@ -26,5 +30,23 @@ Cactus::~Cactus()
 
 void Cactus::Update(sf::Time elapsed)
 {
+	double time = elapsed.asMilliseconds() * 0.30;
 
+	sprite_.move((int)-time, 0);
+}
+
+bool Cactus::CheckCollision(sf::FloatRect rect) const
+{
+	for (int i = 0; i < rect.height; i++)
+	{
+		if (sprite_.getGlobalBounds().contains(rect.left + rect.width, rect.top + i))
+			return true;
+	}
+	for (int i = 0; i < rect.width; i++)
+	{
+		if (sprite_.getGlobalBounds().contains(rect.left + i, rect.top + rect.height))
+			return true;
+	}
+
+	return false;
 }
