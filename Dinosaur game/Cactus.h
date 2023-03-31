@@ -3,9 +3,9 @@
 
 class Cactus : public Entity
 {
-
+	static std::vector<sf::IntRect> cactuses_;
 public:
-	Cactus();
+	Cactus(int n);
 	~Cactus();
 	void Update(sf::Time elapsed) override;
 };
