@@ -49,8 +49,8 @@ void Game::Input(sf::Event& event)
 			}
 		}
 	}
-
-	objects_[0]->Input(event);
+	else
+		objects_[0]->Input(event);
 }
 
 void Game::Update(sf::Time elapsed)

@@ -7,11 +7,11 @@ class Score;
 class World : public Entity
 {
 	sf::Sprite sprite2_;  //for cycled animation
-	Score* score_;
+	Score* score_;   //works like timer
 
 	std::list<Entity*> objects_;
 
-	int timerToSpawnCactuses_;
+	std::vector<std::pair<int, int>> timers_;  //first - this time, second - old time to respawn objects after time
 
 	void SpawnNewObjects();
 	void DeleteOldObjects();

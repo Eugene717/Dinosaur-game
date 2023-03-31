@@ -5,12 +5,26 @@
 
 const int CHANGE_TO_SPAWN_CACTUS = 25;
 
+enum Timers
+{
+    cactus,
+    pterodactyl,
+    cloud,
+    star,
+    moon
+};
+
 World::World()
 {
 	sprite_.setTexture(texture_);
     sprite2_.setTexture(texture_);
 
     score_ = new Score();
+
+    for (int i = 0; i < 5; i++)
+    {
+        timers_.push_back(std::make_pair<int, int>(0, 0));
+	}
 
     Init();
 }
@@ -42,21 +56,23 @@ void World::Init()
     sprite2_.setTextureRect(sf::IntRect(2, 54, 0, 11));
     sprite2_.setPosition(1200, 135);
 
-    timerToSpawnCactuses_ = 0;
+    for (int i = 0; i < timers_.size(); i++)
+    {
+		timers_[i].first = timers_[i].second = 0;
+    }
 }
 
 void World::SpawnNewObjects()
 {
     std::random_device rd;
 
-    static int oldTimeToSpawnCactuses = 0;
-    timerToSpawnCactuses_ = score_->GetScore();
+    timers_[cactus].first = score_->GetScore();
 
-    if ((float)(timerToSpawnCactuses_ - oldTimeToSpawnCactuses) / 10.0f > 1.1f)
+    if ((float)(timers_[cactus].first - timers_[cactus].second) / 10.0f > 1.1f)
     {
         if ((rd() % 100) < CHANGE_TO_SPAWN_CACTUS)
         {
-            oldTimeToSpawnCactuses = timerToSpawnCactuses_;
+            timers_[cactus].second = timers_[cactus].first;
 
             Cactus* c = new Cactus(rd() % 6);
             objects_.push_back(c);
