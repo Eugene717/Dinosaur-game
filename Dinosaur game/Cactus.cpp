@@ -37,12 +37,12 @@ void Cactus::Update(sf::Time elapsed)
 
 bool Cactus::CheckCollision(sf::FloatRect rect) const
 {
-	for (int i = 0; i < rect.height; i++)
+	for (int i = 0; i < 13; i++)
 	{
 		if (sprite_.getGlobalBounds().contains(rect.left + rect.width, rect.top + i))
 			return true;
 	}
-	for (int i = 0; i < rect.width; i++)
+	for (int i = 8; i < rect.width - 15; i++)
 	{
 		if (sprite_.getGlobalBounds().contains(rect.left + i, rect.top + rect.height))
 			return true;
