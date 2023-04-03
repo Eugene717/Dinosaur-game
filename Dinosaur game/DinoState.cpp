@@ -3,8 +3,8 @@
 
 sf::Time DinoState::last_;
 bool DinoState::firstFrame_;
-const float GRAVITY = 750.0f;  //free fall
-const float JUMP_VELOCITY = -320.0f;  //initial speed
+const float GRAVITY = 1300.0f;  //free fall
+const float JUMP_VELOCITY = -500.0f;  //initial speed
 
 DinoState::DinoState(Dinosaur* dino) :dino_(dino)
 {

@@ -11,7 +11,7 @@ class World : public Entity
 
 	std::list<Entity*> objects_;
 
-	std::vector<std::pair<int, int>> timers_;  //first - this time, second - old time to respawn objects after time
+	std::vector<int> timers_;  //old time to respawn objects after time
 
 	void SpawnNewObjects();
 	void DeleteOldObjects();

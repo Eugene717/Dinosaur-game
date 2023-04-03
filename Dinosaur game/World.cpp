@@ -1,9 +1,11 @@
 #include "World.h"
 #include "Score.h"
 #include "Cactus.h"
+#include "Pterodactyl.h"
 #include <random>
 
 const int CHANGE_TO_SPAWN_CACTUS = 25;
+const int CHANGE_TO_SPAWN_PTERODACTYL = 5;
 
 enum Timers
 {
@@ -23,7 +25,7 @@ World::World()
 
     for (int i = 0; i < 5; i++)
     {
-        timers_.push_back(std::make_pair<int, int>(0, 0));
+        timers_.push_back(0);
 	}
 
     Init();
@@ -58,7 +60,7 @@ void World::Init()
 
     for (int i = 0; i < timers_.size(); i++)
     {
-		timers_[i].first = timers_[i].second = 0;
+		timers_[i] = 0;
     }
 }
 
@@ -66,18 +68,38 @@ void World::SpawnNewObjects()
 {
     std::random_device rd;
 
-    timers_[cactus].first = score_->GetScore();
+    int time = score_->GetScore();
+    int spawnPterodactyl = 100;
+    if (time > 0)
+        spawnPterodactyl = rd() % 100;
 
-    if ((float)(timers_[cactus].first - timers_[cactus].second) / 10.0f > 1.1f)
+    if (spawnPterodactyl < CHANGE_TO_SPAWN_PTERODACTYL)
     {
-        if ((rd() % 100) < CHANGE_TO_SPAWN_CACTUS)
-        {
-            timers_[cactus].second = timers_[cactus].first;
+        if (time - timers_[pterodactyl] > 100)
+            if ((float)(time - timers_[pterodactyl]) / 15.0f > 1.5f)
+            {
+                timers_[pterodactyl] = time;
 
-            Cactus* c = new Cactus(rd() % 6);
-            objects_.push_back(c);
-        }
+                Pterodactyl* p = new Pterodactyl(rd() % 3);
+                objects_.push_back(p);
+            }
     }
+    else  //spawn cactus
+    {
+        if (time - timers_[pterodactyl] > 40 || timers_[pterodactyl] == 0)
+            if ((float)(time - timers_[cactus]) / 10.0f > 1.1f)
+            {
+                if ((rd() % 100) < CHANGE_TO_SPAWN_CACTUS)
+                {
+                    timers_[cactus] = time;
+
+                    Cactus* c = new Cactus(rd() % 6);
+                    objects_.push_back(c);
+                }
+            }
+    }
+
+
 }
 
 void World::DeleteOldObjects()
