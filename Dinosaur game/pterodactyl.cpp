@@ -29,11 +29,13 @@ void Pterodactyl::Update(sf::Time elapsed)
 	{
 		if (firstFrame_)
 		{
+			sprite_.move(0, 6);
 			sprite_.setTextureRect(sf::IntRect(134, 8, 45, 33));
 			firstFrame_ = false;
 		}
 		else
 		{
+			sprite_.move(0, -6);
 			sprite_.setTextureRect(sf::IntRect(180, 2, 45, 29));
 			firstFrame_ = true;
 		}
