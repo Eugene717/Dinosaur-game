@@ -22,6 +22,7 @@ World::World()
     sprite2_.setTexture(texture_);
 
     score_ = new Score();
+    speedUp_ = 1;
 
     for (int i = 0; i < 5; i++)
     {
@@ -46,6 +47,7 @@ World::~World()
 void World::Init()
 {
     score_->Init();
+    speedUp_ = 1;
 
     for (auto it = objects_.begin(); it != objects_.end(); ++it)
     {
@@ -127,9 +129,17 @@ bool World::CheckCollision(sf::Sprite* OtherSprite) const
     return false;
 }
 
-void World::Update(sf::Time elapsed)
+void World::Update(double elapsed)
 {
-    double time = elapsed.asMilliseconds() * 0.30;
+    score_->Update(elapsed);
+
+    if (score_->GetScore() > 250)
+        if (speedUp_ < 2)
+            speedUp_ += 0.0005;
+
+    elapsed *= speedUp_;
+
+    double time = elapsed * 0.30;
 
     sf::IntRect rect = sprite_.getTextureRect();
 
@@ -146,9 +156,8 @@ void World::Update(sf::Time elapsed)
         rect.left = 2; //move to texture begin
     }
 
-    sprite_.setTextureRect(rect);
+	sprite_.setTextureRect(rect);
 
-    score_->Update(elapsed);
     for (auto i = objects_.begin(); i != objects_.end(); i++)
     {
 		(*i)->Update(elapsed);

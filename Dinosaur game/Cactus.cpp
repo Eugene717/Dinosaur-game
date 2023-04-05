@@ -29,11 +29,11 @@ Cactus::Cactus(int n)
 Cactus::~Cactus()
 { }
 
-void Cactus::Update(sf::Time elapsed)
+void Cactus::Update(double elapsed)
 {
-	double time = elapsed.asMilliseconds() * 0.30;
+	elapsed *= 0.30;
 
-	sprite_.move((int)-time, 0);
+	sprite_.move((int)-elapsed, 0);
 }
 
 bool Cactus::CheckCollision(sf::Sprite* otherSprite) const

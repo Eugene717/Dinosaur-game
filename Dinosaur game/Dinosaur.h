@@ -13,7 +13,7 @@ public:
 	sf::Sprite* GetSprite() const;
 	void Init();
 	void Input(sf::Event& event) override;
-	void Update(sf::Time elapsed) override;
+	void Update(double elapsed) override;
 
 	friend DinoState;
 };

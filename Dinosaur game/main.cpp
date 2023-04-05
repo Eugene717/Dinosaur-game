@@ -29,7 +29,7 @@ int main()
 		
 		while (lag >= MS_PER_UPDATE)
 		{
-			game.Update(clock.getElapsedTime());
+			game.Update(clock.getElapsedTime().asMilliseconds());
 			lag -= MS_PER_UPDATE;
 		}
 

@@ -102,15 +102,15 @@ int Score::GetScore() const
 	return score_;
 }
 
-void Score::Update(sf::Time elapsed)
+void Score::Update(double elapsed)
 {
-	static sf::Time last;
+	static double last;
 	last += elapsed;
 
-	if (last.asMilliseconds() < 90)
+	if (last < 90)
 		return;
 
-	last = sf::Time::Zero;
+	last = 0;
 
 	++score_;
 	

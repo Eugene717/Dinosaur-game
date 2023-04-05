@@ -8,6 +8,7 @@ class World : public Entity
 {
 	sf::Sprite sprite2_;  //for cycled animation
 	Score* score_;   //works like timer
+	float speedUp_;
 
 	std::list<Entity*> objects_;
 
@@ -19,7 +20,7 @@ public:
 	World();
 	~World();
 	void Init();
-	void Update(sf::Time elapsed) override;
+	void Update(double elapsed) override;
 	void Render(sf::RenderWindow& window) override;
 	bool CheckCollision(sf::Sprite* otherSprite) const override;
 };

@@ -48,7 +48,7 @@ void Dinosaur::Input(sf::Event& event)
 	}
 }
 
-void Dinosaur::Update(sf::Time elapsed)
+void Dinosaur::Update(double elapsed)
 {
 	if (!init_)
 		return;

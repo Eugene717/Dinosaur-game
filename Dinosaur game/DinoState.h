@@ -8,7 +8,7 @@ class DinoState
 	Dinosaur* dino_;
 protected:
 	static bool firstFrame_;
-	static sf::Time last_;  //for changing frame
+	static double last_;  //for changing frame
 
 	void NextFrame(sf::IntRect rect);
 	void Move(sf::Vector2f pos);
@@ -18,7 +18,7 @@ public:
 	DinoState(DinoState* other);
 	virtual ~DinoState();
 	virtual DinoState* Input(sf::Event& event) = 0;
-	virtual DinoState* Update(sf::Time elapsed) = 0;
+	virtual DinoState* Update(double elapsed) = 0;
 };
 
 class RunState : public DinoState
@@ -27,7 +27,7 @@ class RunState : public DinoState
 public:
 	RunState(DinoState* other);
 	DinoState* Input(sf::Event& event) override;
-	DinoState* Update(sf::Time elapsed) override;
+	DinoState* Update(double elapsed) override;
 };
 
 class JumpState : public DinoState
@@ -39,7 +39,7 @@ public:
 	JumpState(Dinosaur* dino);
 	JumpState(DinoState* other);
 	DinoState* Input(sf::Event& event) override;
-	DinoState* Update(sf::Time elapsed) override;
+	DinoState* Update(double elapsed) override;
 };
 
 class CrouchState : public DinoState
@@ -48,5 +48,5 @@ class CrouchState : public DinoState
 public:
 	CrouchState(DinoState* other);
 	DinoState* Input(sf::Event& event) override;
-	DinoState* Update(sf::Time elapsed) override;
+	DinoState* Update(double elapsed) override;
 };

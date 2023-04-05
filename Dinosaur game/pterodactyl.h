@@ -4,11 +4,11 @@
 class Pterodactyl : public Entity
 {
 	bool firstFrame_;
-	sf::Time last_;
+	double last_;
 public:
 	Pterodactyl(int heightPos);
 	~Pterodactyl();
-	void Update(sf::Time elapsed) override;
+	void Update(double elapsed) override;
 	bool CheckCollision(sf::Sprite* otherSprite) const override;
 };
 

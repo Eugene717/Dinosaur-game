@@ -11,7 +11,7 @@ public:
 	~Score();
 	void Init();
 	int GetScore() const;
-	void Update(sf::Time elapsed) override;
+	void Update(double elapsed) override;
 	void Render(sf::RenderWindow& window) override;
 };
 

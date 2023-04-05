@@ -7,7 +7,7 @@ class Cactus : public Entity
 public:
 	Cactus(int n);
 	~Cactus();
-	void Update(sf::Time elapsed) override;
+	void Update(double elapsed) override;
 	bool CheckCollision(sf::Sprite* otherSprite) const override;
 };
 

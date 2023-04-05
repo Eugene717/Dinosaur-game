@@ -1,10 +1,10 @@
 #include "DinoState.h"
 #include "Dinosaur.h"
 
-sf::Time DinoState::last_;
+double DinoState::last_;
 bool DinoState::firstFrame_;
-const float GRAVITY = 1300.0f;  //free fall
-const float JUMP_VELOCITY = -500.0f;  //initial speed
+const float GRAVITY = 2.0f;  //free fall
+const float JUMP_VELOCITY = -0.65f;  //initial speed
 
 DinoState::DinoState(Dinosaur* dino) :dino_(dino)
 {
@@ -73,9 +73,9 @@ DinoState* RunState::Input(sf::Event& event)
 	return nullptr;
 }
 
-DinoState* RunState::Update(sf::Time elapsed)
+DinoState* RunState::Update(double elapsed)
 {
-	if (last_.asMilliseconds() + elapsed.asMilliseconds() >= 100)
+	if (last_ + elapsed >= 100)
 	{
 		if (firstFrame_)
 		{
@@ -87,7 +87,7 @@ DinoState* RunState::Update(sf::Time elapsed)
 			NextFrame(sf::IntRect(980, 2, 44, 46));
 			firstFrame_ = true;
 		}
-		last_ = sf::Time::Zero;
+		last_ = 0;
 	}
 	else
 		last_ += elapsed;
@@ -104,7 +104,7 @@ DinoState* JumpState::Input(sf::Event& event)
 	return nullptr;
 }
 
-DinoState* JumpState::Update(sf::Time elapsed)
+DinoState* JumpState::Update(double elapsed)
 {
 	float moveDown = 1.0f;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
@@ -112,8 +112,8 @@ DinoState* JumpState::Update(sf::Time elapsed)
 		moveDown = 2.5f;
 	}
 
-	velocity_.y += GRAVITY * moveDown * (float)elapsed.asSeconds() ;
-	Move(sf::Vector2f(0, velocity_.y * (float)elapsed.asSeconds()));
+	velocity_.y += GRAVITY * moveDown * (elapsed / 1000);
+	Move(sf::Vector2f(0, velocity_.y * elapsed));
 
 	if (GetPos().y >= 100)
 	{
@@ -146,9 +146,9 @@ DinoState* CrouchState::Input(sf::Event& event)
 	return nullptr;
 }
 
-DinoState* CrouchState::Update(sf::Time elapsed)
+DinoState* CrouchState::Update(double elapsed)
 {
-	if (last_.asMilliseconds() + elapsed.asMilliseconds() >= 100)
+	if (last_ + elapsed >= 100)
 	{
 		if (firstFrame_)
 		{
@@ -160,7 +160,7 @@ DinoState* CrouchState::Update(sf::Time elapsed)
 			NextFrame(sf::IntRect(1112, 19, 59, 29));
 			firstFrame_ = true;
 		}
-		last_ = sf::Time::Zero;
+		last_ = 0;
 	}
 	else
 		last_ += elapsed;
