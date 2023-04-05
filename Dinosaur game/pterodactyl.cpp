@@ -38,7 +38,7 @@ void Pterodactyl::Update(double elapsed)
 		last_ = 0;
 	}
 
-	elapsed *= 0.30;
+	elapsed *= 0.29;
 
 	sprite_.move(-elapsed, 0);
 }
