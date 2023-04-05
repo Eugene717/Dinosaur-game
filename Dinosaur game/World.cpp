@@ -95,8 +95,38 @@ void World::SpawnNewObjects()
                 {
                     timers_[cactus] = time;
 
-                    Cactus* c = new Cactus(rd() % 6);
-                    objects_.push_back(c);
+                    int random = rd() % 100;
+
+                    if (random < 30)
+                    {
+                        Cactus* c = new Cactus(0);
+                        objects_.push_back(c);
+                    }
+                    else if (random >= 30 && random < 55)
+                    {
+                        Cactus* c = new Cactus(1);
+                        objects_.push_back(c);
+                    }
+                    else if (random >= 55 && random < 60)
+                    {
+                        Cactus* c = new Cactus(2);
+                        objects_.push_back(c);
+                    }
+                    else if (random >= 60 && random < 75)
+                    {
+                        Cactus* c = new Cactus(3);
+                        objects_.push_back(c);
+                    }
+                    else if (random >= 75 && random < 90)
+                    {
+                        Cactus* c = new Cactus(4);
+                        objects_.push_back(c);
+                    }
+                    else if (random >= 90 && random < 100)
+                    {
+                        Cactus* c = new Cactus(5);
+                        objects_.push_back(c);
+                    }
                 }
             }
     }
