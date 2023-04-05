@@ -69,7 +69,7 @@ void World::SpawnNewObjects()
     std::random_device rd;
 
     int time = score_->GetScore();
-    int spawnPterodactyl = 100;
+    int spawnPterodactyl = 300;
     if (time > 0)
         spawnPterodactyl = rd() % 100;
 
@@ -116,11 +116,11 @@ void World::DeleteOldObjects()
     }
 }
 
-bool World::CheckCollision(sf::FloatRect rect) const
+bool World::CheckCollision(sf::Sprite* OtherSprite) const
 {
     for (auto i = objects_.begin(); i != objects_.end(); i++)
     {
-        if ((*i)->CheckCollision(rect))
+        if ((*i)->CheckCollision(OtherSprite))
             return true;
     }
 

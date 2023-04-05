@@ -9,6 +9,6 @@ public:
 	Pterodactyl(int heightPos);
 	~Pterodactyl();
 	void Update(sf::Time elapsed) override;
-	bool CheckCollision(sf::FloatRect rect) const override;
+	bool CheckCollision(sf::Sprite* otherSprite) const override;
 };
 

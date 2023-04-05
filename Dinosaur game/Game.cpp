@@ -60,7 +60,7 @@ void Game::Update(sf::Time elapsed)
 		{
 			objects_[i]->Update(elapsed);
 		}
-		if (objects_[1]->CheckCollision(dynamic_cast<Dinosaur*>(objects_[0])->GetGlobalBounds()))
+		if (objects_[1]->CheckCollision(dynamic_cast<Dinosaur*>(objects_[0])->GetSprite()))
 		{
 			ended_ = true;
 			started_ = false;

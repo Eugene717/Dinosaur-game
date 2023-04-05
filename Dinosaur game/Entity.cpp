@@ -28,7 +28,7 @@ const sf::Vector2f Entity::GetSpritePos() const
 	return sprite_.getPosition();
 }
 
-bool Entity::CheckCollision(sf::FloatRect rect) const
+bool Entity::CheckCollision(sf::Sprite* otherSprite) const
 {
 	return false;
 }

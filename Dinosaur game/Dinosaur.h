@@ -10,7 +10,7 @@ class Dinosaur : public Entity
 public:
 	Dinosaur();
 	~Dinosaur();
-	sf::FloatRect GetGlobalBounds() const;
+	sf::Sprite* GetSprite() const;
 	void Init();
 	void Input(sf::Event& event) override;
 	void Update(sf::Time elapsed) override;

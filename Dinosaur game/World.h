@@ -21,6 +21,6 @@ public:
 	void Init();
 	void Update(sf::Time elapsed) override;
 	void Render(sf::RenderWindow& window) override;
-	bool CheckCollision(sf::FloatRect rect) const override;
+	bool CheckCollision(sf::Sprite* otherSprite) const override;
 };
 

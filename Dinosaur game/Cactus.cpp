@@ -1,4 +1,5 @@
 #include "Cactus.h"
+#include "BitmaskManager.h"
 
 std::vector<sf::IntRect> Cactus::cactuses_;
 
@@ -35,22 +36,7 @@ void Cactus::Update(sf::Time elapsed)
 	sprite_.move((int)-time, 0);
 }
 
-bool Cactus::CheckCollision(sf::FloatRect rect) const
+bool Cactus::CheckCollision(sf::Sprite* otherSprite) const
 {
-	sf::FloatRect sprite = sprite_.getGlobalBounds();
-	sprite.left += 4; sprite.width -= 8;
-	sprite.top -= 4; sprite.height -= 8;
-
-	for (int i = 0; i < 13; i++)
-	{
-		if (sprite.contains(rect.left + rect.width - 5, rect.top + i))
-			return true;
-	}
-	for (int i = 10; i < rect.width - 15; i++)
-	{
-		if (sprite.contains(rect.left + i, rect.top + rect.height - 5))
-			return true;
-	}
-
-	return false;
+	return CheckCollisions(otherSprite, &sprite_);
 }

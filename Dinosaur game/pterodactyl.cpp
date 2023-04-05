@@ -1,4 +1,5 @@
 #include "pterodactyl.h"
+#include "BitmaskManager.h"
 
 Pterodactyl::Pterodactyl(int heightPos) : firstFrame_(false)
 { 
@@ -7,7 +8,7 @@ Pterodactyl::Pterodactyl(int heightPos) : firstFrame_(false)
 
 	int y;
 	if (heightPos == 0)
-		y = 20;
+		y = 30;
 	else if (heightPos == 1)
 		y = 50;
 	else
@@ -45,22 +46,7 @@ void Pterodactyl::Update(sf::Time elapsed)
 		last_ += elapsed;
 }
 
-bool Pterodactyl::CheckCollision(sf::FloatRect rect) const
+bool Pterodactyl::CheckCollision(sf::Sprite* otherSprite) const
 {
-	sf::FloatRect sprite = sprite_.getGlobalBounds();
-	sprite.left += 4; sprite.width -= 8;
-	sprite.top -= 4; sprite.height -= 8;
-
-	for (int i = 0; i < 13; i++)
-	{
-		if (sprite.contains(rect.left + rect.width - 5, rect.top + i))
-			return true;
-	}
-	for (int i = 10; i < rect.width - 15; i++)
-	{
-		if (sprite.contains(rect.left + i, rect.top + rect.height - 5))
-			return true;
-	}
-
-	return false;
+	return CheckCollisions(otherSprite, &sprite_);
 }

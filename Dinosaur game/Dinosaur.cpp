@@ -14,9 +14,9 @@ Dinosaur::Dinosaur()
 Dinosaur::~Dinosaur()
 { }
 
-sf::FloatRect Dinosaur::GetGlobalBounds() const
+sf::Sprite* Dinosaur::GetSprite() const
 {
-	return sprite_.getGlobalBounds();
+	return const_cast<sf::Sprite*>(&sprite_);
 }
 
 void Dinosaur::Init()

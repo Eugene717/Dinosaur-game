@@ -14,6 +14,6 @@ public:
 	virtual void Update(sf::Time elapsed) = 0;
 	virtual void Render(sf::RenderWindow& window);
 	const sf::Vector2f GetSpritePos() const;
-	virtual bool CheckCollision(sf::FloatRect rect) const;
+	virtual bool CheckCollision(sf::Sprite* otherSprite) const;
 };
 

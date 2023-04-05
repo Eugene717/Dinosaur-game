@@ -146,6 +146,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BitmaskManager.cpp" />
     <ClCompile Include="Cactus.cpp" />
     <ClCompile Include="Cloud.cpp" />
     <ClCompile Include="Dinosaur.cpp" />
@@ -160,6 +161,7 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BitmaskManager.h" />
     <ClInclude Include="Cactus.h" />
     <ClInclude Include="Cloud.h" />
     <ClInclude Include="Dinosaur.h" />
