@@ -32,21 +32,29 @@ void Game::Init()
 {
 	dynamic_cast<Dinosaur*>(objects_[0])->Init();
 	dynamic_cast<World*>(objects_[1])->Init();
+	
+	started_ = true;
+	ended_ = false;
 }
 
 void Game::Input(sf::Event& event)
 {
 	if (!started_)
 	{
-		if (event.type == sf::Event::KeyPressed)
+		if (ended_)
 		{
-			if (event.key.code == sf::Keyboard::Space || event.key.code == sf::Keyboard::Up)
-			{
-				Init();
-				started_ = true;
-				ended_ = false;
-			}
+			if (event.type != sf::Event::KeyReleased)
+				return;
 		}
+		else if (event.type == sf::Event::KeyPressed)
+		{
+			if (event.key.code != sf::Keyboard::Space && event.key.code != sf::Keyboard::Up)
+				return;
+		}
+		else
+			return;
+
+		Init();
 	}
 	else
 		objects_[0]->Input(event);
@@ -63,6 +71,7 @@ void Game::Update(double elapsed)
 		if (objects_[1]->CheckCollision(dynamic_cast<Dinosaur*>(objects_[0])->GetSprite()))
 		{
 			dynamic_cast<Dinosaur*>(objects_[0])->SetDeadStatus();
+
 			ended_ = true;
 			started_ = false;
 		}
