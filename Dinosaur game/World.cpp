@@ -153,7 +153,10 @@ bool World::CheckCollision(sf::Sprite* OtherSprite) const
     for (auto i = objects_.begin(); i != objects_.end(); i++)
     {
         if ((*i)->CheckCollision(OtherSprite))
+        {
+            score_->SetGameOver();
             return true;
+        }
     }
 
     return false;
@@ -199,8 +202,6 @@ void World::Update(double elapsed)
 
 void World::Render(sf::RenderWindow& window)
 {
-    score_->Render(window);
-
     for (auto i = objects_.begin(); i != objects_.end(); i++)
     {
         (*i)->Render(window);
@@ -208,4 +209,6 @@ void World::Render(sf::RenderWindow& window)
 
     window.draw(sprite_);
     window.draw(sprite2_);
+
+    score_->Render(window);
 }

@@ -71,6 +71,11 @@ Score::Score() : score_(0), HIScore_(0)
 	sprite_.setTextureRect(sf::IntRect(755, 2, 19, 10));
 	sprite_.setPosition(650, 10);
 
+	gameOver_.setTexture(texture_);
+	gameOver_.setTextureRect(sf::IntRect(655, 15, 190, 10));
+	gameOver_.setOrigin(95, 5);
+	gameOver_.setPosition(400, 70);
+
 	Init();	
 }
 
@@ -78,6 +83,7 @@ void Score::Init()
 {
 	HIScore_ = score_;
 	score_ = 0;
+	gameEnded_ = false;
 
 	numbers_.clear();
 
@@ -96,6 +102,11 @@ void Score::Init()
 
 Score::~Score()
 { }
+
+void Score::SetGameOver()
+{
+	gameEnded_ = true;
+}
 
 int Score::GetScore() const
 {
@@ -130,4 +141,7 @@ void Score::Render(sf::RenderWindow& window)
 		numSprites_[numbers_[i].first].setPosition(numbers_[i].second);
 		window.draw(numSprites_[numbers_[i].first]);
 	}
+
+	if (gameEnded_)
+		window.draw(gameOver_);
 }
