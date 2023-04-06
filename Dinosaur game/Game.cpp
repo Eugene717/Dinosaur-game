@@ -43,18 +43,15 @@ void Game::Input(sf::Event& event)
 	{
 		if (ended_)
 		{
-			if (event.type != sf::Event::KeyReleased)
-				return;
+			if (event.type == sf::Event::KeyReleased)
+				if (event.key.code == sf::Keyboard::Up || event.key.code == sf::Keyboard::Space)
+					Init();
 		}
 		else if (event.type == sf::Event::KeyPressed)
 		{
-			if (event.key.code != sf::Keyboard::Space && event.key.code != sf::Keyboard::Up)
-				return;
+			if (event.key.code == sf::Keyboard::Up || event.key.code == sf::Keyboard::Space)
+				Init();
 		}
-		else
-			return;
-
-		Init();
 	}
 	else
 		objects_[0]->Input(event);
