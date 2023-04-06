@@ -19,10 +19,24 @@ sf::Sprite* Dinosaur::GetSprite() const
 	return const_cast<sf::Sprite*>(&sprite_);
 }
 
+void Dinosaur::SetDeadStatus()
+{
+	if (state_ != nullptr)
+		delete state_;
+	state_ = new DeadState(this);
+}
+
 void Dinosaur::Init()
 {
 	sprite_.setPosition(50, 100);
-	state_ = new JumpState(this);
+
+	if (state_ != nullptr)
+	{
+		delete state_;
+		state_ = new RunState(this);
+	}
+	else
+		state_ = new JumpState(this);
 	
 	init_ = true;
 }

@@ -22,6 +22,14 @@ JumpState::JumpState(Dinosaur* dino) : DinoState(dino), keyPressed_(true), onGro
 	NextFrame(sf::IntRect(848, 2, 44, 46));
 }
 
+RunState::RunState(Dinosaur* dino) : DinoState(dino)
+{
+	if (firstFrame_)
+		NextFrame(sf::IntRect(936, 2, 44, 46));
+	else
+		NextFrame(sf::IntRect(980, 2, 44, 46));
+}
+
 RunState::RunState(DinoState* other) : DinoState(other)
 {
 	if (firstFrame_)
@@ -43,6 +51,16 @@ CrouchState::CrouchState(DinoState* other) : DinoState(other)
 		NextFrame(sf::IntRect(1112, 19, 59, 29));
 
 	Move(sf::Vector2f(0, 17));
+}
+
+CrouchState::~CrouchState()
+{
+	Move(sf::Vector2f(0, -17));
+}
+
+DeadState::DeadState(Dinosaur* dino) :DinoState(dino)
+{
+	NextFrame(sf::IntRect(1068, 2, 44, 46));
 }
 
 void DinoState::NextFrame(sf::IntRect rect)
@@ -138,7 +156,6 @@ DinoState* CrouchState::Input(sf::Event& event)
 	{
 		if (event.key.code == sf::Keyboard::Down)
 		{
-			Move(sf::Vector2f(0, -17));
 			return new RunState(this); 
 		}
 	}
@@ -165,5 +182,15 @@ DinoState* CrouchState::Update(double elapsed)
 	else
 		last_ += elapsed;
 
+	return nullptr;
+}
+
+DinoState* DeadState::Input(sf::Event& event)
+{
+	return nullptr;
+}
+
+DinoState* DeadState::Update(double elapsed)
+{
 	return nullptr;
 }

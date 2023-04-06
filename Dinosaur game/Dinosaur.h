@@ -11,6 +11,7 @@ public:
 	Dinosaur();
 	~Dinosaur();
 	sf::Sprite* GetSprite() const;
+	void SetDeadStatus();
 	void Init();
 	void Input(sf::Event& event) override;
 	void Update(double elapsed) override;

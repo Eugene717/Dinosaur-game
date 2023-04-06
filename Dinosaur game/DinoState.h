@@ -23,8 +23,8 @@ public:
 
 class RunState : public DinoState
 {
-
 public:
+	RunState(Dinosaur* dino);
 	RunState(DinoState* other);
 	DinoState* Input(sf::Event& event) override;
 	DinoState* Update(double elapsed) override;
@@ -44,9 +44,17 @@ public:
 
 class CrouchState : public DinoState
 {
-
 public:
 	CrouchState(DinoState* other);
+	~CrouchState();
+	DinoState* Input(sf::Event& event) override;
+	DinoState* Update(double elapsed) override;
+};
+
+class DeadState : public DinoState
+{
+public:
+	DeadState(Dinosaur* dino);
 	DinoState* Input(sf::Event& event) override;
 	DinoState* Update(double elapsed) override;
 };

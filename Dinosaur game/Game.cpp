@@ -62,6 +62,7 @@ void Game::Update(double elapsed)
 		}
 		if (objects_[1]->CheckCollision(dynamic_cast<Dinosaur*>(objects_[0])->GetSprite()))
 		{
+			dynamic_cast<Dinosaur*>(objects_[0])->SetDeadStatus();
 			ended_ = true;
 			started_ = false;
 		}
