@@ -108,6 +108,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -159,6 +160,7 @@
     <ClCompile Include="Score.cpp" />
     <ClCompile Include="Star.cpp" />
     <ClCompile Include="World.cpp" />
+    <ClCompile Include="WorldFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BitmaskManager.h" />
@@ -173,6 +175,7 @@
     <ClInclude Include="Score.h" />
     <ClInclude Include="Star.h" />
     <ClInclude Include="World.h" />
+    <ClInclude Include="WorldFactory.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

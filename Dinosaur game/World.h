@@ -3,6 +3,7 @@
 #include <list>
 
 class Score;
+class WorldFactory;
 
 class World : public Entity
 {
@@ -10,9 +11,8 @@ class World : public Entity
 	Score* score_;   //works like timer
 	float speedUp_;
 
+	WorldFactory* factory_;
 	std::list<Entity*> objects_;
-
-	std::vector<int> timers_;  //old time to respawn objects after time
 
 	void SpawnNewObjects();
 	void DeleteOldObjects();

@@ -2,9 +2,6 @@
 #include "Entity.h"
 #include "Dinosaur.h"
 #include "World.h"
-#include "Cloud.h"
-#include "Star.h"
-#include "Moon.h"
 
 Game::Game()
 {

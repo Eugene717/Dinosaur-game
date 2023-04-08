@@ -1,20 +1,6 @@
 #include "World.h"
 #include "Score.h"
-#include "Cactus.h"
-#include "Pterodactyl.h"
-#include <random>
-
-const int CHANGE_TO_SPAWN_CACTUS = 25;
-const int CHANGE_TO_SPAWN_PTERODACTYL = 5;
-
-enum Timers
-{
-    cactus,
-    pterodactyl,
-    cloud,
-    star,
-    moon
-};
+#include "WorldFactory.h"
 
 World::World()
 {
@@ -23,12 +9,7 @@ World::World()
 
     score_ = new Score();
     speedUp_ = 1;
-
-    for (int i = 0; i < 5; i++)
-    {
-        timers_.push_back(0);
-	}
-
+    
     Init();
 }
 
@@ -48,6 +29,9 @@ void World::Init()
 {
     score_->Init();
     speedUp_ = 1;
+    if (factory_ != nullptr)
+        delete factory_;
+    factory_ = new WorldFactory();
 
     for (auto it = objects_.begin(); it != objects_.end(); ++it)
     {
@@ -58,80 +42,13 @@ void World::Init()
     sprite_.setPosition(0, 135);
     sprite_.setTextureRect(sf::IntRect(2, 54, 800, 11));
     sprite2_.setTextureRect(sf::IntRect(2, 54, 0, 11));
-    sprite2_.setPosition(1200, 135);
-
-    for (int i = 0; i < timers_.size(); i++)
-    {
-		timers_[i] = 0;
-    }
+    sprite2_.setPosition(1200, 135);    
 }
 
 void World::SpawnNewObjects()
 {
-    std::random_device rd;
-
-    int time = score_->GetScore();
-    int spawnPterodactyl = 300;
-    if (time > 0)
-        spawnPterodactyl = rd() % 100;
-
-    if (spawnPterodactyl < CHANGE_TO_SPAWN_PTERODACTYL)
-    {
-        if (time - timers_[pterodactyl] > 100)
-            if ((float)(time - timers_[pterodactyl]) / 15.0f > 1.5f)
-            {
-                timers_[pterodactyl] = time;
-
-                Pterodactyl* p = new Pterodactyl(rd() % 3);
-                objects_.push_back(p);
-            }
-    }
-    else  //spawn cactus
-    {
-        if (time - timers_[pterodactyl] > 40 || timers_[pterodactyl] == 0)
-            if ((float)(time - timers_[cactus]) / 10.0f > 1.1f)
-            {
-                if ((rd() % 100) < CHANGE_TO_SPAWN_CACTUS)
-                {
-                    timers_[cactus] = time;
-
-                    int random = rd() % 100;
-
-                    if (random < 30)
-                    {
-                        Cactus* c = new Cactus(0);
-                        objects_.push_back(c);
-                    }
-                    else if (random >= 30 && random < 55)
-                    {
-                        Cactus* c = new Cactus(1);
-                        objects_.push_back(c);
-                    }
-                    else if (random >= 55 && random < 60)
-                    {
-                        Cactus* c = new Cactus(2);
-                        objects_.push_back(c);
-                    }
-                    else if (random >= 60 && random < 75)
-                    {
-                        Cactus* c = new Cactus(3);
-                        objects_.push_back(c);
-                    }
-                    else if (random >= 75 && random < 90)
-                    {
-                        Cactus* c = new Cactus(4);
-                        objects_.push_back(c);
-                    }
-                    else if (random >= 90 && random < 100)
-                    {
-                        Cactus* c = new Cactus(5);
-                        objects_.push_back(c);
-                    }
-                }
-            }
-    }
-
-
+    if (Entity* object = factory_->CreateObject(score_->GetScore()); object != nullptr)
+        objects_.push_back(object);
 }
 
 void World::DeleteOldObjects()
