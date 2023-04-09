@@ -58,8 +58,8 @@ Entity* WorldFactory::CreateCactus(const int elapsed)
 
 Entity* WorldFactory::CreatePterodactyl(const int elapsed)
 {
-    if (elapsed > 0)
-        if (elapsed - timers_[pterodactyl] > 100)
+    if (elapsed > 300)
+        if (elapsed - timers_[pterodactyl] > 30)
             if ((float)(elapsed - timers_[pterodactyl]) / 10.0f > 1.3f)
                 if ((rd_() % 100) < CHANGE_TO_SPAWN_PTERODACTYL)
                 {

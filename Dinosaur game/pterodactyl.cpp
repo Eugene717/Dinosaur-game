@@ -7,11 +7,11 @@ Pterodactyl::Pterodactyl(int heightPos) : firstFrame_(false), last_(0)
 	sprite_.setTextureRect(sf::IntRect(134, 8, 45, 33));
 
 	if (heightPos == 0)
-		heightPos = 30;
+		heightPos = 62;
 	else if (heightPos == 1)
-		heightPos = 50;
+		heightPos = 82;
 	else
-		heightPos = 80;
+		heightPos = 102;
 
 	sprite_.setPosition(1300, heightPos);
 }
@@ -38,7 +38,7 @@ void Pterodactyl::Update(double elapsed)
 		last_ = 0;
 	}
 
-	elapsed *= 0.295;
+	elapsed *= 0.305;
 
 	sprite_.move(-elapsed, 0);
 }
