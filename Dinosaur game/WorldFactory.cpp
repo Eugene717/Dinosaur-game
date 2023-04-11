@@ -17,6 +17,8 @@ enum Timers
 
 const int CHANGE_TO_SPAWN_CACTUS = 25;
 const int CHANGE_TO_SPAWN_PTERODACTYL = 5;
+const int CHANGE_TO_SPAWN_CLOUD = 10;
+const int CHANGE_TO_SPAWN_STAR = 5;
 
 WorldFactory::WorldFactory()
 {
@@ -73,7 +75,13 @@ Entity* WorldFactory::CreatePterodactyl(const int elapsed)
 
 Entity* WorldFactory::CreateCloud(const int elapsed)
 {
+    if (elapsed - timers_[cloud] > 70)
+        if ((rd_() % 100) < CHANGE_TO_SPAWN_CLOUD)
+        {
+            timers_[cloud] = elapsed;
 
+            return new Cloud(rd_() % 5);
+        }
 
 	return nullptr;
 }

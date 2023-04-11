@@ -3,8 +3,9 @@
 
 class Cloud : public Entity
 {
-
 public:
-
+	Cloud(int heightPos);
+	~Cloud();
+	void Update(double elapsed) override;
 };
 
