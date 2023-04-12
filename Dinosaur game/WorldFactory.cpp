@@ -15,7 +15,7 @@ enum Timers
 	moon
 };
 
-const int CHANGE_TO_SPAWN_CACTUS = 25;
+const int CHANGE_TO_SPAWN_CACTUS = 95;
 const int CHANGE_TO_SPAWN_PTERODACTYL = 5;
 const int CHANGE_TO_SPAWN_CLOUD = 10;
 const int CHANGE_TO_SPAWN_STAR = 5;
@@ -33,42 +33,40 @@ WorldFactory::WorldFactory()
 
 Entity* WorldFactory::CreateCactus(const int elapsed)
 {
-    if (elapsed - timers_[pterodactyl] > 30 || timers_[pterodactyl] == 0)
-        if ((float)(elapsed - timers_[cactus]) / 10.0f > 1.1f)
-            if ((rd_() % 100) < CHANGE_TO_SPAWN_CACTUS)
-            {
-                timers_[cactus] = elapsed;
+    if ((elapsed - timers_[pterodactyl] > 30 || timers_[pterodactyl] == 0) && (elapsed - timers_[cactus]) > 10 )
+        if ((rd_() % 100) < CHANGE_TO_SPAWN_CACTUS)
+        {
+            timers_[cactus] = elapsed;
 
-                int random = rd_() % 100;
+            int random = rd_() % 100;
 
-                if (random < 30)
-                    return new Cactus(0);
-                else if (random >= 30 && random < 55)
-                    return new Cactus(1);
-                else if (random >= 55 && random < 60)
-                    return new Cactus(2);
-                else if (random >= 60 && random < 75)
-                    return new Cactus(3);
-                else if (random >= 75 && random < 90)
-                    return new Cactus(4);
-                else if (random >= 90 && random < 100)
-                    return new Cactus(5);
-            }
+            if (random < 30)
+                return new Cactus(0);
+            else if (random >= 30 && random < 55)
+                return new Cactus(1);
+            else if (random >= 55 && random < 60)
+                return new Cactus(2);
+            else if (random >= 60 && random < 75)
+                return new Cactus(3);
+            else if (random >= 75 && random < 90)
+                return new Cactus(4);
+            else if (random >= 90 && random < 100)
+                return new Cactus(5);
+        }
 
     return nullptr;
 }
 
 Entity* WorldFactory::CreatePterodactyl(const int elapsed)
 {
-    if (elapsed > 300)
-        if (elapsed - timers_[pterodactyl] > 30)
-            if ((float)(elapsed - timers_[pterodactyl]) / 10.0f > 1.3f)
-                if ((rd_() % 100) < CHANGE_TO_SPAWN_PTERODACTYL)
-                {
-                    timers_[pterodactyl] = elapsed;
+    if (elapsed > 0)
+        if (elapsed - timers_[pterodactyl] > 30 && elapsed - timers_[cactus] > 10)
+            if ((rd_() % 100) < CHANGE_TO_SPAWN_PTERODACTYL)
+            {
+                timers_[pterodactyl] = elapsed;
 
-                    return new Pterodactyl(rd_() % 3);
-                }
+                return new Pterodactyl(rd_() % 3);
+            }
 
     return nullptr;
 }
