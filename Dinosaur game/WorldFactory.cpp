@@ -86,7 +86,13 @@ Entity* WorldFactory::CreateCloud(const int elapsed)
 
 Entity* WorldFactory::CreateStar(const int elapsed)
 {
+    if (elapsed - timers_[star] > 100)
+        if ((rd_() % 100) < CHANGE_TO_SPAWN_STAR)
+        {
+            timers_[star] = elapsed;
 
+            return new Star(rd_() % 3, rd_() % 5);
+        }
 
 	return nullptr;
 }
