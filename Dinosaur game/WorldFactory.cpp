@@ -33,7 +33,7 @@ WorldFactory::WorldFactory()
 
 Entity* WorldFactory::CreateCactus(const int elapsed)
 {
-    if ((elapsed - timers_[pterodactyl] > 30 || timers_[pterodactyl] == 0) && (elapsed - timers_[cactus]) > 10 )
+    if ((elapsed - timers_[pterodactyl] > 20 || timers_[pterodactyl] == 0) && (elapsed - timers_[cactus]) > 10 )
         if ((rd_() % 100) < CHANGE_TO_SPAWN_CACTUS)
         {
             timers_[cactus] = elapsed;
@@ -59,8 +59,8 @@ Entity* WorldFactory::CreateCactus(const int elapsed)
 
 Entity* WorldFactory::CreatePterodactyl(const int elapsed)
 {
-    if (elapsed > 0)
-        if (elapsed - timers_[pterodactyl] > 30 && elapsed - timers_[cactus] > 10)
+    if (elapsed > 300)
+        if (elapsed - timers_[pterodactyl] > 20 && elapsed - timers_[cactus] > 10)
             if ((rd_() % 100) < CHANGE_TO_SPAWN_PTERODACTYL)
             {
                 timers_[pterodactyl] = elapsed;
@@ -99,7 +99,12 @@ Entity* WorldFactory::CreateStar(const int elapsed)
 
 Entity* WorldFactory::CreateMoon(const int elapsed)
 {
-
+    if (elapsed - timers_[moon] > 300)
+    {
+        timers_[moon] = elapsed;
+        
+        return new Moon(rd_() % 8);
+    }
 
 	return nullptr;
 }

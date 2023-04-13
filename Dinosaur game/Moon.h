@@ -4,8 +4,9 @@
 
 class Moon : public Entity
 {
-
 public:
-
+	Moon(int n);
+	~Moon();
+	void Update(double elapsed) override;
 };
 
