@@ -4,8 +4,8 @@ Windows Dinosaur Game is a simple yet addictive platformer where players try to 
 ## Gameplay:
 - Get as many points as possible
 - Dodge various obstacles
- - Cactus
- - Pterodactyl
+  - Cactus
+  - Pterodactyl
 
 ## Installation:
 1. Clone this repository `git clone https://github.com/Eugene717/Dinosaur-game.git`
