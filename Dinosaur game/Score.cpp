@@ -81,7 +81,8 @@ Score::Score() : score_(0), HIScore_(0)
 
 void Score::Init()
 {
-	HIScore_ = score_;
+	if (score_ > HIScore_)
+		HIScore_ = score_;
 	score_ = 0;
 	gameEnded_ = false;
 
