@@ -1,5 +1,5 @@
 # Dinosaur-game
-Windows Sea Battle is a classic naval strategy game with options for singleplayer mode against a bot or multiplayer mode, and features a musical accompaniment to enhance the gaming experience.
+Windows Dinosaur Game is a simple yet addictive platformer where players try to score as many points as possible by dodging obstacles such as cacti and pterodactyls while controlling a running dinosaur.
 
 ## Gameplay:
 - Get as many points as possible
@@ -14,7 +14,7 @@ Windows Sea Battle is a classic naval strategy game with options for singleplaye
 4. Run Build
 
 ## Images:
-![Example Sea Battle Image](https://raw.githubusercontent.com/Eugene717/Dinosaur-game/master/assets/cover.png)
+![Example Dinosaur game Image](https://raw.githubusercontent.com/Eugene717/Dinosaur-game/master/assets/cover.png)
 
 ## Contributions:
 Any contributions are welcome, also if there are problems in the process, then create an issue
